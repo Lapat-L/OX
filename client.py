@@ -32,6 +32,11 @@ while True:
     while True:
         response, serverAddress = clientSocket.recvfrom(2048)
 
+        if(response.decode() == '400'):
+            start = input('Type start to start game: ')
+            clientSocket.sendto(start.encode(), (serverName, serverPort))
+            continue
+
         if(response.decode() == '200'):
             print('Wait opponent play ...')
         elif('YOU WIN' in response.decode() or 'YOU LOSE' in response.decode() or 'YOU DRAW' in response.decode()):
